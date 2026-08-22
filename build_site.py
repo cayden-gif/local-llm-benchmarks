@@ -20,10 +20,20 @@ USER = os.environ.get("GH_USER", "cayden-gif")
 REPO = os.environ.get("GH_REPO", "local-llm-benchmarks")
 BASE = "https://" + USER + ".github.io/" + REPO
 
-# Placeholders for affiliate links, so adding them later is a find-and-replace
-# rather than a rebuild.
-RAM_LINK = "#ram"
-MINIPC_LINK = "#minipc"
+# Amazon Associates tag. Empty until the account is approved - the links work
+# either way, they just earn nothing yet. They were "#ram" and "#minipc"
+# placeholders at first, which rendered as dead buttons on a live page.
+AMAZON_TAG = os.environ.get("AMAZON_TAG", "")
+
+
+def amazon(query):
+    """A working Amazon search link, with the affiliate tag if one is set."""
+    url = "https://www.amazon.com/s?k=" + query.replace(" ", "+")
+    return url + ("&tag=" + AMAZON_TAG if AMAZON_TAG else "")
+
+
+RAM_LINK = amazon("laptop ddr5 sodimm 32gb")
+MINIPC_LINK = amazon("mini pc 32gb ram")
 
 CSS = """
 :root{--bg:#0d1117;--card:#161b22;--edge:#30363d;--ink:#e6edf3;
@@ -155,8 +165,11 @@ def build_index(rows, hw, total):
         "<h2>Want to run the bigger ones?</h2>",
         "<p>On hardware like this it is mostly a RAM question: the model has "
         "to fit in memory or the machine swaps and everything stops. "
-        "<a href='" + RAM_LINK + "'>RAM upgrades</a> &middot; "
-        "<a href='" + MINIPC_LINK + "'>small machines that run these well</a>"
+        "<a href='" + RAM_LINK + "' target=_blank "
+        "rel='noopener nofollow sponsored'>RAM upgrades</a> &middot; "
+        "<a href='" + MINIPC_LINK + "' target=_blank "
+        "rel='noopener nofollow sponsored'>small machines that run these "
+        "well</a>"
         "</p>",
     ]
     return page(
@@ -197,7 +210,8 @@ def build_model_page(name, entry, hw):
         "<p>Download size: <b>" + esc(entry.get("size", "?")) + "</b>. The "
         "model has to fit in RAM alongside everything else running, which is "
         "the real limit on a machine like this.</p>",
-        "<p><a href='" + RAM_LINK + "'>RAM upgrades</a> &middot; "
+        "<p><a href='" + RAM_LINK + "' target=_blank "
+        "rel='noopener nofollow sponsored'>RAM upgrades</a> &middot; "
         "<a href='./'>Compare all models</a></p>",
     ]
     desc = name + " measured on integrated graphics: " + (
