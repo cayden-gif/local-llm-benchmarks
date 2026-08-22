@@ -1,0 +1,579 @@
+{
+  "hardware": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.12.10",
+    "cpu": "Intel(R) Core(TM) 7 150U",
+    "ram_gb": 15.7,
+    "gpu": "Intel(R) Graphics"
+  },
+  "models": {
+    "qwen2.5:0.5b": {
+      "size": "397 MB",
+      "runs": {
+        "short": {
+          "ok": true,
+          "wall_s": 4.45,
+          "load_s": 2.0,
+          "first_token_s": 2.26,
+          "tokens": 10,
+          "tokens_per_s": 74.84,
+          "reply_chars": 34
+        },
+        "medium": {
+          "ok": true,
+          "wall_s": 4.64,
+          "load_s": 0.03,
+          "first_token_s": 0.17,
+          "tokens": 152,
+          "tokens_per_s": 63.83,
+          "reply_chars": 687
+        }
+      }
+    },
+    "llama3.2-vision:latest": {
+      "size": "7.8 GB",
+      "runs": {
+        "short": {
+          "ok": false,
+          "error": "HTTP 500"
+        },
+        "medium": {
+          "ok": false,
+          "error": "HTTP 500"
+        }
+      }
+    },
+    "llama3.2:3b": {
+      "size": "2.0 GB",
+      "runs": {
+        "short": {
+          "ok": true,
+          "wall_s": 6.83,
+          "load_s": 4.21,
+          "first_token_s": 4.69,
+          "tokens": 2,
+          "tokens_per_s": 30.67,
+          "reply_chars": 5
+        },
+        "medium": {
+          "ok": true,
+          "wall_s": 8.11,
+          "load_s": 0.02,
+          "first_token_s": 0.36,
+          "tokens": 86,
+          "tokens_per_s": 15.1,
+          "reply_chars": 424
+        }
+      }
+    },
+    "qwen2.5vl:7b": {
+      "size": "6.0 GB",
+      "runs": {
+        "short": {
+          "ok": true,
+          "wall_s": 15.57,
+          "load_s": 12.26,
+          "first_token_s": 13.37,
+          "tokens": 2,
+          "tokens_per_s": 13.14,
+          "reply_chars": 5
+        },
+        "medium": {
+          "ok": true,
+          "wall_s": 14.26,
+          "load_s": 0.05,
+          "first_token_s": 0.96,
+          "tokens": 76,
+          "tokens_per_s": 6.75,
+          "reply_chars": 384
+        }
+      }
+    },
+    "qwen2.5vl:3b": {
+      "size": "3.2 GB",
+      "runs": {
+        "short": {
+          "ok": true,
+          "wall_s": 11.43,
+          "load_s": 8.25,
+          "first_token_s": 8.79,
+          "tokens": 10,
+          "tokens_per_s": 17.11,
+          "reply_chars": 34
+        },
+        "medium": {
+          "ok": true,
+          "wall_s": 6.36,
+          "load_s": 0.06,
+          "first_token_s": 0.4,
+          "tokens": 61,
+          "tokens_per_s": 15.48,
+          "reply_chars": 310
+        }
+      }
+    },
+    "wizardlm-uncensored:latest": {
+      "size": "7.4 GB",
+      "runs": {
+        "short": {
+          "ok": true,
+          "wall_s": 107.4,
+          "load_s": 86.63,
+          "first_token_s": 92.28,
+          "tokens": 3,
+          "tokens_per_s": 6.22,
+          "reply_chars": 6
+        },
+        "medium": {
+          "ok": true,
+          "wall_s": 25.2,
+          "load_s": 5.92,
+          "first_token_s": 7.75,
+          "tokens": 57,
+          "tokens_per_s": 4.14,
+          "reply_chars": 248
+        }
+      }
+    },
+    "llama3:latest": {
+      "size": "4.7 GB",
+      "runs": {
+        "short": {
+          "ok": true,
+          "wall_s": 21.68,
+          "load_s": 18.69,
+          "first_token_s": 19.37,
+          "tokens": 2,
+          "tokens_per_s": 16.71,
+          "reply_chars": 5
+        },
+        "medium": {
+          "ok": true,
+          "wall_s": 13.23,
+          "load_s": 0.09,
+          "first_token_s": 0.91,
+          "tokens": 82,
+          "tokens_per_s": 7.98,
+          "reply_chars": 434
+        }
+      }
+    },
+    "dolphin-mistral:latest": {
+      "size": "4.1 GB",
+      "runs": {
+        "short": {
+          "ok": true,
+          "wall_s": 20.71,
+          "load_s": 17.02,
+          "first_token_s": 18.42,
+          "tokens": 2,
+          "tokens_per_s": 17.87,
+          "reply_chars": 5
+        },
+        "medium": {
+          "ok": true,
+          "wall_s": 12.92,
+          "load_s": 0.12,
+          "first_token_s": 0.94,
+          "tokens": 85,
+          "tokens_per_s": 8.57,
+          "reply_chars": 422
+        }
+      }
+    },
+    "qwen2.5-coder:latest": {
+      "size": "4.7 GB",
+      "runs": {
+        "short": {
+          "ok": true,
+          "wall_s": 13.53,
+          "load_s": 8.73,
+          "first_token_s": 10.2,
+          "tokens": 10,
+          "tokens_per_s": 8.03,
+          "reply_chars": 34
+        },
+        "medium": {
+          "ok": true,
+          "wall_s": 13.66,
+          "load_s": 0.03,
+          "first_token_s": 0.87,
+          "tokens": 79,
+          "tokens_per_s": 7.35,
+          "reply_chars": 448
+        }
+      }
+    },
+    "qwen2.5-coder:7b": {
+      "size": "4.7 GB",
+      "runs": {
+        "short": {
+          "ok": true,
+          "wall_s": 9.03,
+          "load_s": 4.17,
+          "first_token_s": 5.73,
+          "tokens": 10,
+          "tokens_per_s": 8.01,
+          "reply_chars": 34
+        },
+        "medium": {
+          "ok": true,
+          "wall_s": 14.3,
+          "load_s": 0.04,
+          "first_token_s": 0.97,
+          "tokens": 79,
+          "tokens_per_s": 6.99,
+          "reply_chars": 448
+        }
+      }
+    },
+    "llama3.1:latest": {
+      "size": "4.9 GB",
+      "runs": {
+        "short": {
+          "ok": true,
+          "wall_s": 12.6,
+          "load_s": 9.46,
+          "first_token_s": 10.35,
+          "tokens": 2,
+          "tokens_per_s": 11.3,
+          "reply_chars": 5
+        },
+        "medium": {
+          "ok": true,
+          "wall_s": 17.14,
+          "load_s": 0.04,
+          "first_token_s": 0.96,
+          "tokens": 85,
+          "tokens_per_s": 6.02,
+          "reply_chars": 387
+        }
+      }
+    },
+    "llama3.1:8b": {
+      "size": "4.9 GB",
+      "runs": {
+        "short": {
+          "ok": true,
+          "wall_s": 2.59,
+          "load_s": 0.24,
+          "first_token_s": 0.4,
+          "tokens": 2,
+          "tokens_per_s": 12.98,
+          "reply_chars": 5
+        },
+        "medium": {
+          "ok": true,
+          "wall_s": 16.31,
+          "load_s": 0.03,
+          "first_token_s": 1.01,
+          "tokens": 85,
+          "tokens_per_s": 6.41,
+          "reply_chars": 387
+        }
+      }
+    },
+    "qwen2.5:7b": {
+      "size": "4.7 GB",
+      "runs": {
+        "short": {
+          "ok": true,
+          "wall_s": 63.64,
+          "load_s": 57.38,
+          "first_token_s": 58.95,
+          "tokens": 2,
+          "tokens_per_s": 5.35,
+          "reply_chars": 5
+        },
+        "medium": {
+          "ok": true,
+          "wall_s": 16.06,
+          "load_s": 0.11,
+          "first_token_s": 0.95,
+          "tokens": 77,
+          "tokens_per_s": 6.43,
+          "reply_chars": 403
+        }
+      }
+    },
+    "qwen2.5:3b": {
+      "size": "1.9 GB",
+      "runs": {
+        "short": {
+          "ok": true,
+          "wall_s": 13.68,
+          "load_s": 10.82,
+          "first_token_s": 11.49,
+          "tokens": 2,
+          "tokens_per_s": 25.54,
+          "reply_chars": 5
+        },
+        "medium": {
+          "ok": true,
+          "wall_s": 8.01,
+          "load_s": 0.06,
+          "first_token_s": 0.45,
+          "tokens": 76,
+          "tokens_per_s": 13.78,
+          "reply_chars": 387
+        }
+      }
+    },
+    "hf.co/OBLITERATUS/Qwen3.6-27B-OBLITERATED:Q4_K_M": {
+      "size": "16 GB",
+      "runs": {
+        "short": {
+          "ok": false,
+          "error": "TimeoutError"
+        },
+        "medium": {
+          "ok": false,
+          "error": "TimeoutError"
+        }
+      }
+    },
+    "llama2-uncensored:latest": {
+      "size": "3.8 GB",
+      "runs": {
+        "short": {
+          "ok": true,
+          "wall_s": 15.25,
+          "load_s": 11.57,
+          "first_token_s": 12.88,
+          "tokens": 2,
+          "tokens_per_s": 12.92,
+          "reply_chars": 5
+        },
+        "medium": {
+          "ok": true,
+          "wall_s": 9.15,
+          "load_s": 0.24,
+          "first_token_s": 1.33,
+          "tokens": 46,
+          "tokens_per_s": 8.03,
+          "reply_chars": 219
+        }
+      }
+    },
+    "raw-model:latest": {
+      "size": "4.7 GB",
+      "runs": {
+        "short": {
+          "ok": true,
+          "wall_s": 16.96,
+          "load_s": 13.27,
+          "first_token_s": 14.74,
+          "tokens": 2,
+          "tokens_per_s": 12.62,
+          "reply_chars": 5
+        },
+        "medium": {
+          "ok": true,
+          "wall_s": 9.14,
+          "load_s": 0.03,
+          "first_token_s": 0.83,
+          "tokens": 50,
+          "tokens_per_s": 7.98,
+          "reply_chars": 274
+        }
+      }
+    },
+    "hf.co/OBLITERATUS/gemma-4-E4B-it-OBLITERATED:Q4_K_M": {
+      "size": "6.3 GB",
+      "runs": {
+        "short": {
+          "ok": true,
+          "wall_s": 127.3,
+          "load_s": 119.45,
+          "first_token_s": 121.61,
+          "tokens": 2,
+          "tokens_per_s": 2.47,
+          "reply_chars": 5
+        },
+        "medium": {
+          "ok": true,
+          "wall_s": 31.32,
+          "load_s": 3.78,
+          "first_token_s": 4.52,
+          "tokens": 184,
+          "tokens_per_s": 7.85,
+          "reply_chars": 724
+        }
+      }
+    },
+    "hermes3:latest": {
+      "size": "4.7 GB",
+      "runs": {
+        "short": {
+          "ok": true,
+          "wall_s": 118.59,
+          "load_s": 115.05,
+          "first_token_s": 115.68,
+          "tokens": 2,
+          "tokens_per_s": 16.07,
+          "reply_chars": 5
+        },
+        "medium": {
+          "ok": true,
+          "wall_s": 16.43,
+          "load_s": 6.12,
+          "first_token_s": 6.92,
+          "tokens": 61,
+          "tokens_per_s": 8.3,
+          "reply_chars": 312
+        }
+      }
+    },
+    "llama3.3:latest": {
+      "size": "42 GB",
+      "runs": {
+        "short": {
+          "ok": false,
+          "error": "HTTP 500"
+        },
+        "medium": {
+          "ok": false,
+          "error": "HTTP 500"
+        }
+      }
+    },
+    "qwen2.5-coder:1.5b": {
+      "size": "986 MB",
+      "runs": {
+        "short": {
+          "ok": true,
+          "wall_s": 8.13,
+          "load_s": 5.79,
+          "first_token_s": 6.04,
+          "tokens": 2,
+          "tokens_per_s": 65.04,
+          "reply_chars": 5
+        },
+        "medium": {
+          "ok": true,
+          "wall_s": 4.19,
+          "load_s": 0.03,
+          "first_token_s": 0.21,
+          "tokens": 61,
+          "tokens_per_s": 31.44,
+          "reply_chars": 310
+        }
+      }
+    },
+    "dolphin-llama3:latest": {
+      "size": "4.7 GB",
+      "runs": {
+        "short": {
+          "ok": true,
+          "wall_s": 11.25,
+          "load_s": 7.71,
+          "first_token_s": 9.05,
+          "tokens": 2,
+          "tokens_per_s": 14.56,
+          "reply_chars": 5
+        },
+        "medium": {
+          "ok": true,
+          "wall_s": 9.2,
+          "load_s": 0.03,
+          "first_token_s": 0.89,
+          "tokens": 50,
+          "tokens_per_s": 8.0,
+          "reply_chars": 274
+        }
+      }
+    },
+    "gemma4:latest": {
+      "size": "9.6 GB",
+      "runs": {
+        "short": {
+          "ok": true,
+          "wall_s": 149.3,
+          "load_s": 146.28,
+          "first_token_s": 146.98,
+          "tokens": 2,
+          "tokens_per_s": 18.68,
+          "reply_chars": 5
+        },
+        "medium": {
+          "ok": true,
+          "wall_s": 31.56,
+          "load_s": 0.06,
+          "first_token_s": 0.81,
+          "tokens": 220,
+          "tokens_per_s": 8.29,
+          "reply_chars": 0
+        }
+      }
+    },
+    "llama3.2:1b": {
+      "size": "1.3 GB",
+      "runs": {
+        "short": {
+          "ok": true,
+          "wall_s": 12.46,
+          "load_s": 9.97,
+          "first_token_s": 10.32,
+          "tokens": 2,
+          "tokens_per_s": 49.33,
+          "reply_chars": 3
+        },
+        "medium": {
+          "ok": true,
+          "wall_s": 5.84,
+          "load_s": 0.04,
+          "first_token_s": 0.27,
+          "tokens": 96,
+          "tokens_per_s": 27.26,
+          "reply_chars": 479
+        }
+      }
+    },
+    "llama3.2:latest": {
+      "size": "2.0 GB",
+      "runs": {
+        "short": {
+          "ok": true,
+          "wall_s": 15.89,
+          "load_s": 13.23,
+          "first_token_s": 13.76,
+          "tokens": 2,
+          "tokens_per_s": 32.11,
+          "reply_chars": 5
+        },
+        "medium": {
+          "ok": true,
+          "wall_s": 8.02,
+          "load_s": 0.04,
+          "first_token_s": 0.39,
+          "tokens": 86,
+          "tokens_per_s": 15.43,
+          "reply_chars": 424
+        }
+      }
+    },
+    "llama3:8b": {
+      "size": "4.7 GB",
+      "runs": {
+        "short": {
+          "ok": true,
+          "wall_s": 23.34,
+          "load_s": 20.49,
+          "first_token_s": 21.18,
+          "tokens": 2,
+          "tokens_per_s": 16.49,
+          "reply_chars": 5
+        },
+        "medium": {
+          "ok": true,
+          "wall_s": 15.81,
+          "load_s": 0.4,
+          "first_token_s": 1.23,
+          "tokens": 82,
+          "tokens_per_s": 6.62,
+          "reply_chars": 434
+        }
+      }
+    }
+  }
+}

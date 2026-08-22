@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://cayden-gif.github.io/local-llm-benchmarks/sitemap.xml
