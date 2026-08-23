@@ -124,6 +124,55 @@ def speed_of(entry, which="medium"):
     return r.get("tokens_per_s") if r.get("ok") else None
 
 
+def warm_first_word(entry, which="medium"):
+    """Time to the first word with the model ALREADY loaded.
+
+    The raw first_token figure includes loading the model from disk, and with
+    26 models cycling through 16GB of RAM Ollama evicts them constantly - so
+    hermes3 looked like it took 6.92s to answer when 6.12s of that was just
+    loading. Publishing that as a property of the model would have been wrong.
+    Subtracting the load leaves the number people actually care about.
+    """
+    r = (entry.get("runs") or {}).get(which) or {}
+    if not r.get("ok"):
+        return None
+    ft, ld = r.get("first_token_s"), r.get("load_s")
+    if ft is None:
+        return None
+    return round(max(0.0, ft - (ld or 0.0)), 2)
+
+
+def cold_load(entry, which="medium"):
+    r = (entry.get("runs") or {}).get(which) or {}
+    return r.get("load_s") if r.get("ok") else None
+
+
+def base_name(name):
+    """The model without its tag: llama3.2:3b and llama3.2:latest share one."""
+    return name.split(":")[0]
+
+
+def alias_groups(models):
+    """Tags that are the same model. Same base name AND same size.
+
+    Two tags of one model produce two near-identical pages, which Google reads
+    as thin duplicate content. The canonical is the specific tag rather than
+    ":latest", since ":latest" moves over time.
+    """
+    groups = {}
+    for name, entry in models.items():
+        key = (base_name(name), entry.get("size"))
+        groups.setdefault(key, []).append(name)
+    canon = {}
+    for key, names in groups.items():
+        if len(names) < 2:
+            continue
+        specific = sorted([n for n in names if not n.endswith(":latest")])             or sorted(names)
+        for n in names:
+            canon[n] = specific[0]
+    return canon
+
+
 def rig_block(hw):
     return ("<div class=rig>Measured on <b>" + esc(hw.get("cpu", "?"))
             + "</b> &middot; GPU <b>" + esc(hw.get("gpu", "?"))
@@ -139,29 +188,35 @@ def build_index(rows, hw, total):
         "actually usable.</p>",
         rig_block(hw),
         "<div class=scroll><table><thead><tr><th>Model</th><th>Size</th>"
-        "<th>Speed</th><th>First word</th><th>Usable?</th></tr></thead><tbody>",
+        "<th>Speed</th><th>First word</th><th>Cold start</th>"
+        "<th>Usable?</th></tr></thead><tbody>",
     ]
     for name, entry, _ in rows:
         tps = speed_of(entry)
         cls, label, _why = verdict(tps)
-        med = (entry.get("runs") or {}).get("medium") or {}
-        ftt = med.get("first_token_s")
+        warm = warm_first_word(entry)
+        cold = cold_load(entry)
         body.append(
             "<tr><td><a href='" + slug(name) + ".html'>" + esc(name)
             + "</a></td><td class=num>" + esc(entry.get("size", "?"))
             + "</td><td class=num>"
             + ((str(tps) + " tok/s") if tps else "&mdash;")
             + "</td><td class=num>"
-            + ((str(ftt) + "s") if ftt is not None else "&mdash;")
+            + ((str(warm) + "s") if warm is not None else "&mdash;")
+            + "</td><td class=num>"
+            + ((str(cold) + "s") if cold is not None else "&mdash;")
             + "</td><td><span class='pill " + cls + "'>" + label
             + "</span></td></tr>")
     body += [
         "</tbody></table></div>",
         "<div class=note><b>How to read this.</b> People read at about 5 words "
         "a second, so anything slower feels like waiting. Tokens are roughly "
-        "words. First-word time is how long you stare at nothing after hitting "
-        "enter, and it is usually what makes a model feel slow rather than the "
-        "typing speed.</div>",
+        "words.<br><b>First word</b> is the wait after hitting enter with the "
+        "model already in memory. <b>Cold start</b> is the extra wait when it "
+        "has to be loaded from disk, which happens whenever another model has "
+        "pushed it out of RAM. They are separated deliberately: combined, they "
+        "made hermes3 look like it took 6.9s to answer when 6.1s of that was "
+        "purely loading.</div>",
         "<h2>Want to run the bigger ones?</h2>",
         "<p>On hardware like this it is mostly a RAM question: the model has "
         "to fit in memory or the machine swaps and everything stops. "
@@ -179,7 +234,7 @@ def build_index(rows, hw, total):
         "\n".join(body), BASE + "/")
 
 
-def build_model_page(name, entry, hw):
+def build_model_page(name, entry, hw, canon=None):
     tps = speed_of(entry)
     cls, label, why = verdict(tps)
     short = (entry.get("runs") or {}).get("short") or {}
@@ -194,8 +249,8 @@ def build_model_page(name, entry, hw):
         "<th>Short reply</th><th>Longer reply</th></tr></thead><tbody>",
     ]
     for lab, key, unit in [("Speed", "tokens_per_s", " tok/s"),
-                           ("Time to first word", "first_token_s", " s"),
-                           ("Model load", "load_s", " s"),
+                           ("First word (incl. any load)", "first_token_s", " s"),
+                           ("Cold start - loading from disk", "load_s", " s"),
                            ("Total time", "wall_s", " s"),
                            ("Words generated", "tokens", "")]:
         sv, mv = short.get(key), med.get(key)
@@ -205,6 +260,15 @@ def build_model_page(name, entry, hw):
             + "</td><td class=num>"
             + ((str(mv) + unit) if mv is not None else "&mdash;")
             + "</td></tr>")
+    warm = warm_first_word(entry)
+    if warm is not None:
+        body.append("<p>With the model already in memory the first word "
+                    "arrives in <b>" + str(warm) + "s</b>. Anything beyond "
+                    "that is loading it from disk.</p>")
+    if canon and canon != name:
+        body.append("<p><b>Same model as <a href='" + slug(canon)
+                    + ".html'>" + esc(canon) + "</a></b>, just a different "
+                    "tag.</p>")
     body += [
         "</tbody></table></div>",
         "<p>Download size: <b>" + esc(entry.get("size", "?")) + "</b>. The "
@@ -216,8 +280,11 @@ def build_model_page(name, entry, hw):
     ]
     desc = name + " measured on integrated graphics: " + (
         (str(tps) + " tokens per second.") if tps else "would not run.")
+    # A duplicate tag points its canonical at the real page, so Google sees
+    # one page instead of two near-identical ones.
+    target = canon or name
     return page(title, desc, "\n".join(body),
-                BASE + "/" + slug(name) + ".html")
+                BASE + "/" + slug(target) + ".html")
 
 
 def main():
@@ -246,12 +313,19 @@ def main():
     with open(os.path.join(OUT, "index.html"), "w", encoding="utf-8") as f:
         f.write(build_index(rows, hw, len(models)))
 
+    canon = alias_groups(models)
     for name, entry, _ in rows:
         with open(os.path.join(OUT, slug(name) + ".html"), "w",
                   encoding="utf-8") as f:
-            f.write(build_model_page(name, entry, hw))
+            f.write(build_model_page(name, entry, hw, canon.get(name)))
 
-    urls = [BASE + "/"] + [BASE + "/" + slug(n) + ".html" for n, _, _ in rows]
+    # Only canonical pages belong in a sitemap; alias tags point at them.
+    seen, urls = set(), [BASE + "/"]
+    for n, _, _ in rows:
+        target = canon.get(n, n)
+        if target not in seen:
+            seen.add(target)
+            urls.append(BASE + "/" + slug(target) + ".html")
     with open(os.path.join(OUT, "sitemap.xml"), "w", encoding="utf-8") as f:
         f.write("<?xml version='1.0' encoding='UTF-8'?>\n"
                 "<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>\n"

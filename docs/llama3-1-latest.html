@@ -5,7 +5,7 @@
 <meta name=viewport content='width=device-width,initial-scale=1'>
 <title>Can you run llama3.1:latest without a GPU?</title>
 <meta name=description content='llama3.1:latest measured on integrated graphics: 6.02 tokens per second.'>
-<link rel=canonical href='https://cayden-gif.github.io/local-llm-benchmarks/llama3-1-latest.html'>
+<link rel=canonical href='https://cayden-gif.github.io/local-llm-benchmarks/llama3-1-8b.html'>
 <meta property='og:title' content='Can you run llama3.1:latest without a GPU?'>
 <style>
 :root{--bg:#0d1117;--card:#161b22;--edge:#30363d;--ink:#e6edf3;
@@ -43,10 +43,12 @@ footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--edge);
 <div class=rig>Measured on <b>Intel(R) Core(TM) 7 150U</b> &middot; GPU <b>Intel(R) Graphics</b> &middot; <b>15.7 GB</b> RAM &middot; Windows-11-10.0.26200-SP0</div>
 <div class=scroll><table><thead><tr><th>Measurement</th><th>Short reply</th><th>Longer reply</th></tr></thead><tbody>
 <tr><td>Speed</td><td class=num>11.3 tok/s</td><td class=num>6.02 tok/s</td></tr>
-<tr><td>Time to first word</td><td class=num>10.35 s</td><td class=num>0.96 s</td></tr>
-<tr><td>Model load</td><td class=num>9.46 s</td><td class=num>0.04 s</td></tr>
+<tr><td>First word (incl. any load)</td><td class=num>10.35 s</td><td class=num>0.96 s</td></tr>
+<tr><td>Cold start - loading from disk</td><td class=num>9.46 s</td><td class=num>0.04 s</td></tr>
 <tr><td>Total time</td><td class=num>12.6 s</td><td class=num>17.14 s</td></tr>
 <tr><td>Words generated</td><td class=num>2</td><td class=num>85</td></tr>
+<p>With the model already in memory the first word arrives in <b>0.92s</b>. Anything beyond that is loading it from disk.</p>
+<p><b>Same model as <a href='llama3-1-8b.html'>llama3.1:8b</a></b>, just a different tag.</p>
 </tbody></table></div>
 <p>Download size: <b>4.9 GB</b>. The model has to fit in RAM alongside everything else running, which is the real limit on a machine like this.</p>
 <p><a href='https://www.amazon.com/s?k=laptop+ddr5+sodimm+32gb' target=_blank rel='noopener nofollow sponsored'>RAM upgrades</a> &middot; <a href='./'>Compare all models</a></p>

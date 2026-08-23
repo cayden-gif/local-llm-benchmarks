@@ -43,10 +43,11 @@ footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--edge);
 <div class=rig>Measured on <b>Intel(R) Core(TM) 7 150U</b> &middot; GPU <b>Intel(R) Graphics</b> &middot; <b>15.7 GB</b> RAM &middot; Windows-11-10.0.26200-SP0</div>
 <div class=scroll><table><thead><tr><th>Measurement</th><th>Short reply</th><th>Longer reply</th></tr></thead><tbody>
 <tr><td>Speed</td><td class=num>6.22 tok/s</td><td class=num>4.14 tok/s</td></tr>
-<tr><td>Time to first word</td><td class=num>92.28 s</td><td class=num>7.75 s</td></tr>
-<tr><td>Model load</td><td class=num>86.63 s</td><td class=num>5.92 s</td></tr>
+<tr><td>First word (incl. any load)</td><td class=num>92.28 s</td><td class=num>7.75 s</td></tr>
+<tr><td>Cold start - loading from disk</td><td class=num>86.63 s</td><td class=num>5.92 s</td></tr>
 <tr><td>Total time</td><td class=num>107.4 s</td><td class=num>25.2 s</td></tr>
 <tr><td>Words generated</td><td class=num>3</td><td class=num>57</td></tr>
+<p>With the model already in memory the first word arrives in <b>1.83s</b>. Anything beyond that is loading it from disk.</p>
 </tbody></table></div>
 <p>Download size: <b>7.4 GB</b>. The model has to fit in RAM alongside everything else running, which is the real limit on a machine like this.</p>
 <p><a href='https://www.amazon.com/s?k=laptop+ddr5+sodimm+32gb' target=_blank rel='noopener nofollow sponsored'>RAM upgrades</a> &middot; <a href='./'>Compare all models</a></p>
